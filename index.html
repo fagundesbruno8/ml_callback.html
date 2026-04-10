@@ -1,1 +1,67 @@
-C:\Users\BrunoFagundesdeSouza\Downloads\Projetos Claude\simulador-app\ml_callback.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Velds — Autenticação ML</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f1117; color: #f1f5f9;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+    .box {
+      background: #161920; border: 1px solid #1e2230;
+      border-radius: 16px; padding: 40px 48px;
+      text-align: center; max-width: 540px; width: 90%;
+    }
+    h2 { color: #00d4aa; font-size: 22px; margin-bottom: 8px; }
+    p  { color: #9ca3af; font-size: 14px; margin: 12px 0; }
+    .code-box {
+      background: #0f1117; border: 1px solid #252d3d;
+      border-radius: 10px; padding: 14px 18px;
+      font-family: monospace; font-size: 13px;
+      color: #e2e8f0; word-break: break-all;
+      margin: 20px 0; text-align: left;
+    }
+    button {
+      background: #00d4aa; color: #0f1117;
+      border: none; border-radius: 8px;
+      padding: 11px 28px; font-size: 14px;
+      font-weight: 700; cursor: pointer;
+      transition: opacity .2s;
+    }
+    button:hover { opacity: .85; }
+    .ok { color: #2ed573; font-size: 13px; margin-top: 10px; display: none; }
+    .err { color: #ff6b6b; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>✅ Autorização concluída</h2>
+    <p>Cole o código abaixo no <strong>Simulador Velds → Admin → Mercado Livre</strong>:</p>
+    <div class="code-box" id="code-box">—</div>
+    <button onclick="copiar()">Copiar código</button>
+    <div class="ok" id="ok-msg">✓ Copiado!</div>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code   = params.get('code');
+    const box    = document.getElementById('code-box');
+    if (code) {
+      box.textContent = code;
+    } else {
+      box.innerHTML = '<span class="err">Código não encontrado na URL.</span>';
+    }
+    function copiar() {
+      if (!code) return;
+      navigator.clipboard.writeText(code).then(() => {
+        const msg = document.getElementById('ok-msg');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 2500);
+      });
+    }
+  </script>
+</body>
+</html>
